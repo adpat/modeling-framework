@@ -1,0 +1,14 @@
+desc "show tree of source files"
+task :tree do
+  sh "tree -P '*.java|*.scala' -I target --noreport"
+end
+
+desc "run an example"
+task :run_ex do
+  cp = %w{
+    MODEL_EXAMPLE/target/MODEL_EXAMPLE-0.1-SNAPSHOT.jar
+    MODEL_MOCK/target/MODEL_MOCK-0.1-SNAPSHOT.jar
+    MODEL_BASE/target/MODEL_BASE-0.1-SNAPSHOT.jar
+  }.join(":")
+  sh "scala -cp #{cp} model_example.Context"
+end
