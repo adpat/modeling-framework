@@ -29,16 +29,17 @@
 
 package model_mock
 
-import model_base.Source
+import model_base.Sink
 
 import scala.collection.mutable.ArrayBuffer
 
-class DataSourceEntry(val x: Any) {}
+class MockDataSinkEntry(val x: Any) {
+}
 
-class DataSource extends Source {
-  val buf = ArrayBuffer[DataSourceEntry]()
+class MockDataSink extends Sink {
+  val buf = ArrayBuffer[MockDataSinkEntry]()
   
-  override def get():DataSourceEntry = {
-    buf.take(1)(0)
+  override def put(entry: Any): Unit = {
+    buf += entry.asInstanceOf[MockDataSinkEntry] // fix contravariance
   }
 }

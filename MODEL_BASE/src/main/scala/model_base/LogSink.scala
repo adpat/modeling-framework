@@ -29,7 +29,6 @@
 
 package model_base
 
-import scala.collection.mutable.ArrayBuffer
 import org.joda.time.DateTime
 import scala.collection.mutable.{ HashMap => MMap }
 
@@ -68,12 +67,6 @@ class LogEntry(lev: LogLevel, msg: String, t: DateTime, tg: MMap[String, Any]) {
 }
 
 class LogSink extends Sink {
-  val buf = ArrayBuffer[LogEntry]()
-  
-  def put(entry: LogEntry): Unit = {
-    buf += entry
-  }
-  
   def putLogEntry(message: String, tags: MMap[String, Any], level: LogLevel): Unit = {
     val time = DateTime.now // or should this be utc?
     val entry = new LogEntry(level, message, time, tags)

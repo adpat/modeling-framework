@@ -35,14 +35,14 @@ import org.scalatest._
 import org.scalatest.junit.AssertionsForJUnit
 
 class DataSinkTest extends AssertionsForJUnit {
-  var sink: DataSink = _
+  var sink: MockDataSink = _
   
   @Before def initialize() {
-    sink = new DataSink()
+    sink = new MockDataSink()
   }
   
   @Test def test_put(): Unit = {
-    sink.put(3)
+    sink.put(new MockDataSinkEntry(3))
     assert(3 === sink.buf(0).x)
   }
 }

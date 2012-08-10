@@ -1,5 +1,7 @@
 package model_example;
 
+// For simulation, it's important to use a high-quality PRNG,
+// with long cycles and good distribution.
 import org.uncommons.maths.random.MersenneTwisterRNG;
 
 public class State extends model_base.TimeState {
@@ -18,6 +20,7 @@ public class State extends model_base.TimeState {
     if (this.prng.nextBoolean()) {
       dummyState += 1;
     }
+//    ctx.debug(
   }
 
   public static final byte[] longToByteArray(long value) {

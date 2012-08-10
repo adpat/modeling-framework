@@ -35,14 +35,14 @@ import org.scalatest._
 import org.scalatest.junit.AssertionsForJUnit
 
 class DataSourceTest extends AssertionsForJUnit {
-  var source: DataSource = _
+  var source: MockDataSource = _
   
   @Before def initialize() {
-    source = new DataSource()
+    source = new MockDataSource()
   }
   
   @Test def test_get(): Unit = {
-    source.buf.insert(0, new DataSourceEntry(3))
+    source.buf.insert(0, new MockDataSourceEntry(3))
     assert(3 === source.get().x)
   }
 }

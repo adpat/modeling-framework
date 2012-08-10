@@ -27,8 +27,17 @@
  * SUCH DAMAGE.
  */
 
-package model_base
+package model_mock
 
-class Sink {
-  def put(x: Any): Unit = {}
+import model_base.LogSink
+import model_base.LogEntry
+
+import scala.collection.mutable.ArrayBuffer
+
+class MockLogSink extends LogSink {
+  val buf = ArrayBuffer[LogEntry]()
+  
+  def put(entry: LogEntry): Unit = {
+    buf += entry
+  }
 }
