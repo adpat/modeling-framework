@@ -34,8 +34,13 @@ import org.joda.time.DateTime
 import scala.collection.mutable.{ HashMap => MMap }
 
 /**
- * the id is shared among all runs of this context (each run has its
- * own State)
+ * Encapsulates the requested computation, complete with a specification
+ * of time parameters, data sources, data sinks. This computation may
+ * actually be performed more than once, using instances of the State 
+ * class.
+ *
+ * The id is shared among all runs of this context (each run has its
+ * own State with its own id).
  */
 class Context(val id:Int) { 
   var dt: Double = 1.0

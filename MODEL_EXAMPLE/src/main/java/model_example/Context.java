@@ -1,6 +1,10 @@
 package model_example;
 
 public class Context extends model_base.Context {
+  /**
+   * For this example, the Context does really need to do anything
+   * differently from the model_base.Context
+   */
   public Context(int id) {
     super(id);
   }
