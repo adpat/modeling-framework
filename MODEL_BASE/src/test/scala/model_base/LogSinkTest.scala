@@ -27,7 +27,7 @@
  * SUCH DAMAGE.
  */
 
-package model_mock
+package model_base
 
 import org.junit._
 import org.junit.Assert._

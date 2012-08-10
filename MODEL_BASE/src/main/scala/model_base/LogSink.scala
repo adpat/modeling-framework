@@ -27,9 +27,7 @@
  * SUCH DAMAGE.
  */
 
-package model_mock
-
-import model_base.Sink
+package model_base
 
 import scala.collection.mutable.ArrayBuffer
 import org.joda.time.DateTime
