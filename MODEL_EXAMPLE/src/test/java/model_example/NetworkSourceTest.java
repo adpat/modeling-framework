@@ -27,22 +27,24 @@
  * SUCH DAMAGE.
  */
 
-package model_mock
+package model_example;
 
-import model_base.Source
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import scala.collection.mutable.ArrayBuffer
+import edu.berkeley.path.ModelElements.*;
 
-class MockDataSourceEntry(val x: Any) {}
-
-class MockDataSource extends Source {
-  val buf = ArrayBuffer[MockDataSourceEntry]()
+public class NetworkSourceTest {
+  NetworkSource src;
   
-  override def get():MockDataSourceEntry = {
-    buf.take(1)(0)
+  @Before
+  public void setup() {
+    src = new NetworkSource();
   }
   
-  protected def insert(x: Any) {
-    buf.insert(0, new MockDataSourceEntry(x));
+  @Test
+  public void sourceHasNetwork() {
+    Network nw = src.getNetwork();
+    assertTrue(nw != null);
   }
 }

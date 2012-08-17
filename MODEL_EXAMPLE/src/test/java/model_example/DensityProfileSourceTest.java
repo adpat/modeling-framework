@@ -27,22 +27,26 @@
  * SUCH DAMAGE.
  */
 
-package model_mock
+package model_example;
 
-import model_base.Source
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import scala.collection.mutable.ArrayBuffer
+import edu.berkeley.path.ModelElements.*;
 
-class MockDataSourceEntry(val x: Any) {}
-
-class MockDataSource extends Source {
-  val buf = ArrayBuffer[MockDataSourceEntry]()
+public class DensityProfileSourceTest {
+  DensitySource src;
   
-  override def get():MockDataSourceEntry = {
-    buf.take(1)(0)
+  @Before
+  public void setup() {
+    src = new DensitySource();
   }
   
-  protected def insert(x: Any) {
-    buf.insert(0, new MockDataSourceEntry(x));
+  @Test
+  public void sourceHasTwoDPs() {
+    DensityProfile dp0 = src.getDensityProfile();
+    assertTrue(dp0 != null);
+    DensityProfile dp1 = src.getDensityProfile();
+    assertTrue(dp1 != null);
   }
 }
