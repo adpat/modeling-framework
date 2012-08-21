@@ -34,11 +34,11 @@ public class DensitySource extends MockDataSource {
           
     dp.setVehiclesPerMeter(vpm);
     
-    List<Double> row = new ArrayList();
-    vpm.put("1", row); // link "1"
-    row.add(1.0 + fudge); // first cell in link "1"
-    row.add(2.0 + fudge);
-    row.add(3.0 + fudge);
+    List<Double> cells = new ArrayList();
+    vpm.put("3", cells); // link "3" -- see NetworkSource.java
+    cells.add(1.0 + fudge); // first cell in link
+    cells.add(2.0 + fudge);
+    cells.add(3.0 + fudge);
     
     return dp;
   }

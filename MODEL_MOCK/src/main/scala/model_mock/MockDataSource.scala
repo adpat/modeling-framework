@@ -43,6 +43,6 @@ class MockDataSource extends Source {
   }
   
   protected def insert(x: Any) {
-    buf.insert(0, new MockDataSourceEntry(x));
+    buf.insert(0, new MockDataSourceEntry(x))
   }
 }

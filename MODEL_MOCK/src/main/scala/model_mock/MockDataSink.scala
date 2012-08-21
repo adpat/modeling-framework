@@ -42,4 +42,16 @@ class MockDataSink extends Sink {
   override def put(entry: Any): Unit = {
     buf += entry.asInstanceOf[MockDataSinkEntry] // fix contravariance
   }
+
+/** Returns the value contained in the i-th entry, if any, 
+ * and null otherwise. For testing.
+ */
+  protected def fetch(i: Int): Any = {
+    try {
+      buf(i).x
+    }
+    catch {
+      case ex: java.lang.IndexOutOfBoundsException => null
+    }
+  }
 }

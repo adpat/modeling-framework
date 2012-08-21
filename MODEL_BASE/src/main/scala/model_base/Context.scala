@@ -73,4 +73,18 @@ class Context(val id:Int) {
    * another type of sink accepts program metrics
   */
   val sinks = new MMap[String, Sink]
+  
+  /**
+   * Get a named source. This is a convenience method for java access.
+   */
+  def getSource(name: String): Source = {
+     sources.get(name).getOrElse(null)
+   }
+  
+  /**
+   * Get a named sink. This is a convenience method for java access.
+   */
+  def getSink(name: String): Sink = {
+     sinks.get(name).getOrElse(null)
+   }
 }
