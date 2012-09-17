@@ -6,9 +6,9 @@ end
 desc "run an example"
 task :run_ex do
   cp = %w{
-    MODEL_EXAMPLE/target/MODEL_EXAMPLE-0.1-SNAPSHOT.jar
-    MODEL_MOCK/target/MODEL_MOCK-0.1-SNAPSHOT.jar
-    MODEL_BASE/target/MODEL_BASE-0.1-SNAPSHOT.jar
+    model_example/target/model_example-0.1-SNAPSHOT.jar
+    model_mock/target/model_mock-0.1-SNAPSHOT.jar
+    model_base/target/model_base-0.1-SNAPSHOT.jar
   }.join(":")
   sh "scala -cp #{cp} model_example.Context"
 end

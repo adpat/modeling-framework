@@ -146,8 +146,8 @@
   </reporting>
 
   <modules>
-    <module>MODEL_BASE</module>
-    <module>MODEL_MOCK</module>
-    <module>MODEL_EXAMPLE</module>
+    <module>model-base</module>
+    <module>model-mock</module>
+    <module>model-example</module>
   </modules>
 </project>
