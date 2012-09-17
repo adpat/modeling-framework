@@ -48,6 +48,10 @@ class LogEntry(lev: LogLevel, msg: String, t: DateTime, tg: MMap[String, Any]) {
   val message: String = msg
   val time: DateTime = t
   
+  def getMessage():String = message
+  def getLevel():LogLevel = level
+  def getTime():DateTime = time
+  
   /**
    * For example, client code may wish to use these tags:
    * 
