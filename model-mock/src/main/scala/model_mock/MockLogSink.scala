@@ -37,6 +37,8 @@ import scala.collection.mutable.ArrayBuffer
 class MockLogSink extends LogSink {
   val buf = ArrayBuffer[LogEntry]()
   
+  def getEntry(n: Integer): LogEntry = buf(n)
+  
   override def put(entry: Any): Unit = { // should be LogEntry
     buf += entry.asInstanceOf[LogEntry] // fix contravariance
   }
