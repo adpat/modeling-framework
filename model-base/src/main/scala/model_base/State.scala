@@ -29,11 +29,30 @@
 
 package edu.berkeley.path.model_base
 
+import org.joda.time.DateTime
+
 /**
- * id is unique among all State instances sharing the same Context
- * multiple States can vary in Montecarlo params, distribution 
- * sampling, etc.
+ * Represents the state of a Run at one point in time.
+ * id is unique among all State instances belonging to the same Run
+ * subclasses can add members containing state vectors etc.
  */
-class State(val id: Int, val context: Context) {
-  def valid = true
+class State(val run: Run) {
+  /**
+   * Timestamp of this state: at what time in the run did this state
+   * object reflect the state of the run. Value is set by the Run.
+   */
+  var timestamp: DateTime = _
+
+  /**
+   * Update the state to the next timestep. To be overridden by subclasses.
+   * Note that the default implementation returns the same object.
+   * However, an implementation may choose to have immutable state,
+   * in which case the return value would be an updated copy of the
+   * original state.
+   */
+  def update(): State = {
+    this
+  }
+  
+  def valid(): Boolean = true
 }

@@ -31,60 +31,32 @@ package edu.berkeley.path.model_base
 
 import org.joda.time.DateTime
 
-import scala.collection.mutable.{ HashMap => MMap }
-
 /**
  * Encapsulates the requested computation, complete with a specification
  * of time parameters, data sources, data sinks. This computation may
- * actually be performed more than once, using instances of the State 
+ * actually be performed more than once, using instances of the Run 
  * class.
  *
- * The id is shared among all runs of this context (each run has its
- * own State with its own id).
+ * The id is shared among all runs of this context (each Run has its
+ * own id).
+ * 
+ * The context has methods to construct Runs and States.
+ * 
+ * Subclasses can manage additional static config, though it may be
+ * better instead to pass in config via a source (such as Scenarios).
+ * That way, the resulting "block" can be more flexibly connected to
+ * different sources of config data, and the config could become dynamic
+ * if necessary.
+ * 
+ * The minimum information contained in a Context object is exactly the
+ * information needed before reading from sources.
  */
 class Context(val id:Int) { 
   var dt: Double = 1.0
   var timeBegin = new DateTime(0)
   var timeEnd = new DateTime(0)
   
-  /**
-   * there is one source for each "port" coming into the dataflow block,
-   * they are indexed by port name, which is how modules are
-   * connected to dataflow channels
-   *
-   * one type of source provides "scenario" data:
-   * config, init state, and pre-defined state changes over time
-   *
-   * another type of source provides new data over time that is
-   * not provided initially, such as sensor data
-   */
-  val sources = new MMap[String, Source]
-  
-  /**
-   * there is one sink for each "port" coming out of the dataflow block,
-   * they are indexed by port name, which is how modules are
-   * connected to dataflow channels
-   *
-   * one type of sink accepts state updates or results
-   * (such as density over time)
-   *
-   * another type of sink accepts logged program events
-   *
-   * another type of sink accepts program metrics
-  */
-  val sinks = new MMap[String, Sink]
-  
-  /**
-   * Get a named source. This is a convenience method for java access.
-   */
-  def getSource(name: String): Source = {
-     sources.get(name).getOrElse(null)
-   }
-  
-  /**
-   * Get a named sink. This is a convenience method for java access.
-   */
-  def getSink(name: String): Sink = {
-     sinks.get(name).getOrElse(null)
-   }
+  def makeRun(runId:Int): Run = {
+     new Run(runId, this)
+  }
 }

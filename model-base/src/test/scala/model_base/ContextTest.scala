@@ -58,13 +58,4 @@ class ContextTest extends AssertionsForJUnit {
   @Test def test_timeEnd(): Unit = {
     assertEquals(new DateTime(0), ctx.timeEnd)
   }
-
-  @Test def test_sources(): Unit = {
-    val src = new Source
-    ctx.sources("a") = src
-    assertEquals(src, ctx.sources("a"))
-    intercept[NoSuchElementException] {
-      assertEquals(src, ctx.sources("b"))
-    }
-  }
 }

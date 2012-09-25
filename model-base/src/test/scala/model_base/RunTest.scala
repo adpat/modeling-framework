@@ -29,56 +29,67 @@
 
 package edu.berkeley.path.model_base
 
+import org.junit._
+import org.junit.Assert._
+import org.scalatest._
+import org.scalatest.junit.AssertionsForJUnit
+
+import org.joda.time.DateTime
+import org.joda.time.format.DateTimeFormat
 import org.joda.time.Duration
 
-class TimeState(id: Int, context: Context) extends State(id, context) {
-  var step: Long = 0
-  
-  /**
-   *  to be overridden by subclasses
-   */
-  def update(): Unit = {
-    step += 1
+class RunTest extends AssertionsForJUnit {
+  var ctx: Context = _
+  var run: Run = _
+  var st: State = _
+
+  @Before def initialize() {
+    ctx = new Context(1)
+    run = ctx.makeRun(1)
+    run.initializeState(run.makeState())
   }
   
-  /**
-   *  Public api to move time forward a given number of steps in this state
-   * instance. Should generally not be overridden. Override update instead.
-   */
-  def evolveSteps(steps: Int): Unit = {
-    for (i <- 1 to steps) {
-      update()
-    }
+  @Test def test_runOnce(): Unit = {
+    assert(0 === run.step)
+    run.runOnce()
+    assert(1 === run.step)
   }
   
-  /**
-   *  Public api to move time forward a given number of seconds in this state
-   * instance. Should generally not be overridden. Override update instead.
-   */
-  def evolveTime(t: Duration): Unit = {
-    val t1 = timeElapsed plus t
-    while (t1 isLongerThan timeElapsed) {
-      update()
-    }
+  @Test def test_runForSteps(): Unit = {
+    assert(0 === run.step)
+    run.runForSteps(5)
+    assert(5 === run.step)
+  }
+  
+  @Test def test_runForTime(): Unit = {
+    assert(0 === run.step)
+    run.runForTime(Duration.standardSeconds(10))
+    assert(10 === run.step)
+    assert(Duration.standardSeconds(10) === run.timeElapsed)
+  }
+  
+  @Test def test_valid(): Unit = {
+    run.runForTime(Duration.standardSeconds(10))
+    assert(run.valid)
+  }
+  
+  @Test def test_done(): Unit = {
+    val formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm")
+    ctx.timeBegin = formatter.parseDateTime("01/01/2012 07:00")
+    ctx.timeEnd = formatter.parseDateTime("01/01/2012 07:01")
+    
+    run.runForTime(Duration.standardSeconds(60))
+    assert(!run.done)
+    run.runForTime(Duration.standardSeconds(1))
+    assert(run.done)
   }
 
-  /**
-   *  Seconds since start of run.
-   */
-  def timeElapsed = Duration.standardSeconds(math.floor(step * context.dt).toLong)
-
-  /**
-   *  Clock time for the state.
-   */
-  def time = context.timeBegin plus timeElapsed
-  
-  /**
-   *  Is the run done, based on the specified timeEnd?
-   */
-  def done = time isAfter context.timeEnd
-  
-  /**
-   *  Useful to override
-   */
-  override def valid = step >= 0
+  @Test def test_sources(): Unit = {
+    val src = new Source
+    run.sources("a") = src
+    assertEquals(src, run.sources("a"))
+    intercept[NoSuchElementException] {
+      assertEquals(src, run.sources("b"))
+    }
+  }
 }
