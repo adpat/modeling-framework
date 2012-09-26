@@ -35,6 +35,8 @@ import static org.junit.Assert.*;
 import java.lang.Math;
 
 import edu.berkeley.path.model_elements.*;
+import edu.berkeley.path.model_mock.MockLogSink;
+import edu.berkeley.path.model_base.LogEntry;
 
 public class RunTest {
   public Context ctx;
@@ -74,5 +76,19 @@ public class RunTest {
     //  dp = {"id": "2out", "vehiclesPerMeter": {"3": [21.370252752202436, 21.924625321996107, 22.897159091992364]}}
     
     assertEquals((Double)21.3702, dp.getVehiclesPerMeter().get("3").get(0), 0.0001);
+  }
+
+  @Test
+  public void testLogSink() {
+    MockLogSink logsnk = (MockLogSink)(run.getSink("log"));
+
+    run.runForSteps(1);
+    run.runForSteps(1);
+    
+    LogEntry entry = logsnk.getEntry(0);
+    assertEquals("Initialized model_example.State", entry.getMessage());
+    
+    entry = logsnk.getEntry(1);
+    assertEquals("Updated model_example.State", entry.getMessage());
   }
 }
