@@ -11,7 +11,6 @@ public class State extends edu.berkeley.path.model_base.State {
   public Network nw;
   public DensityProfile denIn;
   public DensityProfile denOut;
-  private DensityProfile.Builder dpb;
   
   public DensitySource densrc;
   public NetworkSource netsrc;
@@ -36,22 +35,28 @@ public class State extends edu.berkeley.path.model_base.State {
     
     denIn = densrc.getDensityProfile();
     
-    dpb = DensityProfile.newBuilder(denIn);
-    dpb.setId("2out");
-    denOut = dpb.build();
+    denOut = new DensityProfile();
+    denOut.setId("2out");
     
-    Map<CharSequence,List<Double>> vpm = denOut.getVehiclesPerMeter();
+    Map<CharSequence,List<Double>> vpmIn = denIn.getVehiclesPerMeter();
+    HashMap<CharSequence,List<Double>> vpmOut = new HashMap<CharSequence,List<Double>>();
     
-    for (Link link: nw.getLinks()) {
-      List<Double> cells = vpm.get(link.id);
-      if (cells != null) {
-        ListIterator<Double> iter = cells.listIterator();
+    for (Link link: (List<Link>)(List<?>)nw.getLinks()) {
+      List<Double> cellsIn = vpmIn.get(link.id);
+      
+      if (cellsIn != null) {
+        List<Double> cellsOut = new ArrayList<Double>(cellsIn);
+        ListIterator<Double> iter = cellsOut.listIterator();
         while (iter.hasNext()) {
           double den = iter.next();
           iter.set(den + ((Run)run()).prng.nextDouble() - 0.5);
         }
+        
+        vpmOut.put(link.id, cellsOut);
       }
     }
+
+    denOut.setVehiclesPerMeter(vpmOut);
 
     densnk.putDensityProfile(denOut);
     

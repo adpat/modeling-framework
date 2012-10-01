@@ -22,12 +22,9 @@ public class DensitySource extends MockDataSource {
   
   public DensityProfile makeDp(double fudge) {
     DensityProfile dp;
-    DensityProfile.Builder dpb;
     
-    dpb = DensityProfile.newBuilder();
-    dpb.setId("2");
-    
-    dp = dpb.build();
+    dp = new DensityProfile();
+    dp.setId("2");
     
     Map<CharSequence,List<Double>> vpm =
       new HashMap<CharSequence,List<Double>>();
