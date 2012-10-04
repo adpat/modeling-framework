@@ -22,7 +22,7 @@ public class NetworkSource extends MockDataSource {
     
     Schema schema = nw.getSchema();
 
-    nw.setId("42");
+    nw.setId(42);
     nw.setNodes(new ArrayList<edu.berkeley.path.model_elements_base.Node>());
     nw.setLinks(new ArrayList<edu.berkeley.path.model_elements_base.Link>());
     
@@ -31,19 +31,19 @@ public class NetworkSource extends MockDataSource {
     Link ln;
 
     nd1 = new Node();
-    nd1.setId("1");
+    nd1.setId(1);
     nd1.setName("one");
     nd1.setType("hwy");
     nw.nodes.add(nd1);
 
     nd2 = new Node();
-    nd2.setId("2");
+    nd2.setId(2);
     nd2.setName("two");
     nd2.setType("hwy");
     nw.nodes.add(nd2);
 
     ln = new Link();
-    ln.setId("3");
+    ln.setId(3);
     ln.setName("two");
     ln.setType("hwy");
     ln.setLaneCount(4.0);

@@ -24,7 +24,7 @@ public class DensitySource extends MockDataSource {
     DensityProfile dp;
     
     dp = new DensityProfile();
-    dp.setId("2");
+    dp.setId(2);
     
     Map<CharSequence,List<Double>> vpm =
       new HashMap<CharSequence,List<Double>>();

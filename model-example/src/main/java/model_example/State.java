@@ -36,7 +36,7 @@ public class State extends edu.berkeley.path.model_base.State {
     denIn = densrc.getDensityProfile();
     
     denOut = new DensityProfile();
-    denOut.setId("2out");
+    denOut.setId(3);
     
     Map<CharSequence,List<Double>> vpmIn = denIn.getVehiclesPerMeter();
     HashMap<CharSequence,List<Double>> vpmOut = new HashMap<CharSequence,List<Double>>();
