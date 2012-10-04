@@ -52,6 +52,37 @@ class Context(val id:Int) {
   var dt: Double = 1.0
   var timeBegin = new DateTime(0)
   var timeEnd = new DateTime(0)
+
+  /**
+   * Begin time of run, the meaning of which may depend on the mode.
+   */
+  def getTimeBegin: DateTime = {
+    this.timeBegin
+  }
+  
+  def setTimeBegin(time: DateTime):Unit = {
+    this.timeBegin = time
+  }
+  
+  /**
+   * End time of run, the meaning of which may depend on the mode.
+   */
+  def getTimeEnd: DateTime = {
+    this.timeEnd
+  }
+  
+  def setTimeEnd(time: DateTime):Unit = {
+    this.timeEnd = time
+  }
+  
+  def getDt(): Double = {
+    this.dt
+  }
+  
+  def setDt(dt: Double):Unit = {
+    this.dt = dt
+  }
+  
   
   def makeRun(runId:Int): Run = {
      new Run(runId, this)
