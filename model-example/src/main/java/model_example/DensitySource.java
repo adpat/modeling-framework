@@ -25,18 +25,8 @@ public class DensitySource extends MockDataSource {
     
     dp = new DensityProfile();
     dp.setId(2);
-    
-    Map<CharSequence,List<Double>> vpm =
-      new HashMap<CharSequence,List<Double>>();
-          
-    dp.setVehiclesPerMeter(vpm);
-    
-    List<Double> cells = new ArrayList();
-    vpm.put("3", cells); // link "3" -- see NetworkSource.java
-    cells.add(1.0 + fudge); // first cell in link
-    cells.add(2.0 + fudge);
-    cells.add(3.0 + fudge);
-    
+    dp.setVehiclesPerMeterOnLink(3, 1.23 + fudge);
+
     return dp;
   }
   

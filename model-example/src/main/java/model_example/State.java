@@ -32,34 +32,20 @@ public class State extends edu.berkeley.path.model_base.State {
   
   public State update() {
     dummyState += 1;
-    
+
     denIn = densrc.getDensityProfile();
-    
     denOut = new DensityProfile();
     denOut.setId(3);
-    
-    Map<CharSequence,List<Double>> vpmIn = denIn.getVehiclesPerMeter();
-    HashMap<CharSequence,List<Double>> vpmOut = new HashMap<CharSequence,List<Double>>();
-    
+  
     for (Link link: (List<Link>)(List<?>)nw.getLinks()) {
-      List<Double> cellsIn = vpmIn.get(link.id);
-      
-      if (cellsIn != null) {
-        List<Double> cellsOut = new ArrayList<Double>(cellsIn);
-        ListIterator<Double> iter = cellsOut.listIterator();
-        while (iter.hasNext()) {
-          double den = iter.next();
-          iter.set(den + ((Run)run()).prng.nextDouble() - 0.5);
-        }
-        
-        vpmOut.put(link.id, cellsOut);
+      Double in = denIn.getVehiclesPerMeterOnLink(link);
+    
+      if (in != null) {
+        denOut.setVehiclesPerMeterOnLink(link, in + 0.1);
       }
     }
 
-    denOut.setVehiclesPerMeter(vpmOut);
-
     densnk.putDensityProfile(denOut);
-    
     logsnk.debug("Updated model_example.State", null);
     
     return this;
