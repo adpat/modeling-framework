@@ -35,7 +35,7 @@ public class State extends edu.berkeley.path.model_base.State {
 
     denIn = densrc.getDensityProfile();
     denOut = new DensityProfile();
-    denOut.setId(3);
+    denOut.setId(3L);
   
     for (Link link: (List<Link>)(List<?>)nw.getLinks()) {
       Double in = denIn.getVehiclesPerMeterOnLink(link);

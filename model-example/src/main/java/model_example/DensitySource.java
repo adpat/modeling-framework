@@ -24,8 +24,8 @@ public class DensitySource extends MockDataSource {
     DensityProfile dp;
     
     dp = new DensityProfile();
-    dp.setId(2);
-    dp.setVehiclesPerMeterOnLink(3, 1.23 + fudge);
+    dp.setId(2L);
+    dp.setVehiclesPerMeterOnLink(3L, 1.23 + fudge);
 
     return dp;
   }
