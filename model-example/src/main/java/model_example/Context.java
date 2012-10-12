@@ -5,7 +5,7 @@ public class Context extends edu.berkeley.path.model_base.Context {
     super(id);
   }
   
-  public Run makeRun(Integer runId, long seed0, long seed1) {
+  public Run makeRun(Long runId, long seed0, long seed1) {
     return new Run(runId, this, seed0, seed1);
   }
 }

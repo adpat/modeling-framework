@@ -48,7 +48,7 @@ import org.joda.time.DateTime
  * The minimum information contained in a Context object is exactly the
  * information needed before reading from sources.
  */
-class Context(val id:Int) { 
+class Context(val id:Long) { 
   var dt: Double = 1.0
   var timeBegin = new DateTime(0)
   var timeEnd = new DateTime(0)
@@ -84,7 +84,7 @@ class Context(val id:Int) {
   }
   
   
-  def makeRun(runId:Int): Run = {
+  def makeRun(runId:Long): Run = {
      new Run(runId, this)
   }
 }

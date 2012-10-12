@@ -45,7 +45,7 @@ public class RunTest {
   @Before
   public void setup() {
     ctx = new Context(1);
-    run = ctx.makeRun(1, 1234, 5678);
+    run = ctx.makeRun(1L, 1234L, 5678L);
     state = run.makeState();
     run.initializeState(state);
     densnk = (DensitySink)(run.getSink("density"));

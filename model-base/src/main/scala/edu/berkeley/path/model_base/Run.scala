@@ -38,7 +38,7 @@ import scala.collection.mutable.{ HashMap => MMap }
  * multiple Runs can vary in Montecarlo params, distribution 
  * sampling, etc. Comparable to the FlowModelRunner of highwayFlowModel.
  */
-class Run(val id:Int, val context: Context) { 
+class Run(val id:Long, val context: Context) { 
   var step: Long = 0
   
   var state: State = _;

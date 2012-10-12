@@ -16,7 +16,7 @@ public class Run extends edu.berkeley.path.model_base.Run {
    * sources and sinks would be constructed externally to the Run and
    * assigned.
    **/
-  public Run(Integer id, Context context, long seed0, long seed1) {
+  public Run(Long id, Context context, long seed0, long seed1) {
     super(id, context);
 
     this.seed0 = seed0;
